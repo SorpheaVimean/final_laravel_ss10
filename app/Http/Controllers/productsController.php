@@ -8,11 +8,21 @@ use Illuminate\Support\Facades\Storage;
 
 class productsController extends Controller
 {
-    public function index(){
-        // $products = Products::all();
-        $products = Products::orderBy("id", "DESC")->get();
+    public function index(Request $request)
+    {
+        $categoryId = $request->input('category_id');
+    
+        // Query products based on category_id if provided
+        $query = Products::orderBy("id", "DESC");
+        if ($categoryId) {
+            $query->where('category_id', $categoryId);
+        }
+    
+        $products = $query->get();
+    
         return view('pages.products.index', ['products' => $products]);
     }
+    
     public function create()
     {
         return view('pages.products.create' );

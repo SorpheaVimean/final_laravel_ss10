@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\paymentsController;
 use App\Http\Controllers\productsController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -36,6 +38,8 @@ Route::middleware('auth')->group(function () {
 
     // Route::get('/products', [productsController::class]);
     Route::resource('/products', productsController::class);
+    Route::resource('/categories', CategoryController::class);
+    Route::resource('/payments', paymentsController::class);
 
     // Route::post('/products', [productsController::class, 'create'])->name('products.create');
     // Route::put('/products/{id}', [productsController::class, 'edit'])->name('products.edit');

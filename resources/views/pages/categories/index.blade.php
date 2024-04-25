@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Products
+            Categories
         </h2>
     </x-slot>
 
@@ -47,22 +47,11 @@
         </div>
       
         <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
-          <form action="{{ route('products.index') }}" method="GET">
-            <label for="category_id">Filter by Category:</label>
-            <select name="category_id" id="category_id">
-                <option value="">All Categories</option>
-                @foreach($products as $product)
-                    <option value="{{ $product->id }}" {{ request('category_id') == $product->category_id ? 'selected' : '' }}>{{ $product->category_id  }}</option>
-                @endforeach
-            </select>
-            <button type="submit">Filter</button>
-        </form>
-        
           <div class="flex justify-between items-center mb-4">
-            <h1 class="text-2xl font-bold text-white">Total Products: {{ count($products) }}</h1>
-            <a wire:navigate href="{{ route("products.create" ) }}">
+            <h1 class="text-2xl font-bold text-white">Total Categories: {{ count($categories) }}</h1>
+            <a wire:navigate href="{{ route("categories.create" ) }}">
               <x-primary-button>
-                Create Product
+                Create Categories
               </x-primary-button>
           </a>
           </div>
@@ -76,35 +65,29 @@
                           class="border-b border-neutral-200 bg-[#332D2D] font-medium text-white dark:border-white/10">
                           <tr>
                             <th scope="col" class=" px-6 py-4">No</th>
-                            <th scope="col" class=" px-6 py-4">Image</th>
-                            <th scope="col" class=" px-6 py-4">category ID</th>
                             <th scope="col" class=" px-6 py-4">name</th>
                             <th scope="col" class=" px-6 py-4">Description</th>
-                            <th scope="col" class=" px-6 py-4">price</th>
                             <th scope="col" class=" px-6 py-4">status</th>
                             <th scope="col" class=" px-6 py-4">Create At</th>
                             <th scope="col" class=" px-6 py-4"> Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $product)
+                            @foreach ($categories as $category)
                             <tr class="border-b border-neutral-200 dark:border-white/10">
-                                <td class="whitespace-nowrap  px-6 py-4 font-medium">{{ $product->id }}</td>
-                                <td class="whitespace-nowrap  px-6 py-4"><img src="{{ url('storage/images/'.$product->image) }}" alt="" class="size-40 object-cover"></td>
-                                <td class="whitespace-nowrap  px-6 py-4">{{ $product->category_id }}</td>
-                                <td class="whitespace-nowrap  px-6 py-4">{{ $product->name }}</td>
-                                <td class="whitespace-nowrap  px-6 py-4">{{ $product->description }}</td>
-                                <td class="whitespace-nowrap  px-6 py-4">$ {{ $product->price }}</td>
-                                <td class="whitespace-nowrap px-6 py-4 {{ $product->status === 1 ? 'text-green-600 font-bold' : 'text-red-600' }}">
-                                  {{ $product->status === 1 ? 'Active' : 'Inactive' }}
+                                <td class="whitespace-nowrap  px-6 py-4 font-medium">{{ $category->id }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4">{{ $category->name }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4">{{ $category->description }}</td>
+                                <td class="whitespace-nowrap px-6 py-4 {{ $category->status === 1 ? 'text-green-600 font-bold' : 'text-red-600' }}">
+                                  {{ $category->status === 1 ? 'Active' : 'Inactive' }}
                               </td>
-                                <td class="whitespace-nowrap  px-6 py-4">{{ $product->created_at }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4">{{ $category->created_at }}</td>
                                 <td class="whitespace-nowrap  px-6 py-4">
                                     <div class="flex gap-5">
                                
                   
                                     {{-- Edit Icon --}}
-                                    <a href="{{ route("products.edit", $product->id) }} ">
+                                    <a href="{{ route("categories.edit", $category->id) }} ">
                                       <button class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                               type="button">
                                           <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 text-blue-800 hover:bg-gray-800 p-3 rounded-full duration-300">
@@ -120,11 +103,11 @@
                                    
                                     
                                     {{-- Delete Icon --}}
-                                    <form action="{{ route("products.destroy", $product->id) }}" method="post">
+                                    <form action="{{ route("categories.destroy", $category->id) }}" method="post">
                                       @csrf
                                       @method("delete")
                                       <button 
-                                      onclick="return confirm('Are you sure you want to delete this product?')"  
+                                      onclick="return confirm('Are you sure you want to delete this category?')"  
                                       class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">
                                         <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 hover:bg-gray-800 p-3 rounded-full duration-300">
                                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-red-500">

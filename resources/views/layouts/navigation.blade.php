@@ -19,7 +19,13 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <x-nav-link wire:navigate :href="route('products.index')" :active="request()->routeIs('products.index')">
-                        {{ __('Product') }}
+                        {{ __('Products') }}
+                    </x-nav-link>
+                    <x-nav-link wire:navigate :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                        {{ __('categories') }}
+                    </x-nav-link>
+                    <x-nav-link wire:navigate :href="route('payments.index')" :active="request()->routeIs('payments.index')">
+                        {{ __('Payments') }}
                     </x-nav-link>
                     
                     
@@ -80,6 +86,12 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.index')">
                 {{ __('products') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                {{ __('categories') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('payments.index')" :active="request()->routeIs('payments.index')">
+                {{ __('Payments') }}
             </x-responsive-nav-link>
         </div>
 
