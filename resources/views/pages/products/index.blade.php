@@ -1,0 +1,339 @@
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            Hello
+        </h2>
+    </x-slot>
+
+ 
+
+
+    <div class="py-5">
+        <div class="">
+          <a wire:navigate href="{{ route("products.create" ) }}">
+              <x-primary-button  
+              {{-- data-twe-toggle="modal"
+              data-twe-target="#create"
+              data-twe-ripple-init
+              data-twe-ripple-color="light" --}}
+              >
+            Create Product
+        </x-primary-button>
+          </a>
+
+{{-- Alert if success --}}
+@if(session('success'))
+<div class="fixed z-50 top-0 right-0">
+   <div
+    role="alert"
+    data-dismissible="alert"
+    class="relative flex w-full max-w-screen-sm p-4 m-10 text-base text-white bg-red-700 rounded-lg font-regular">
+    <div class="shrink-0"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+      stroke="currentColor" class="w-6 h-6">
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z">
+      </path>
+    </svg></div>
+    <div class="ml-3 mr-12">
+        <h5 class="block font-sans text-xl antialiased font-semibold leading-snug tracking-normal text-white">
+            Deleted
+        </h5>
+        <p class="block mt-2 font-sans text-base antialiased font-normal leading-relaxed text-white">
+            {{ session('success') }}
+        </p>
+    </div>
+
+</div> 
+</div>
+
+<script>
+    // Automatically remove success message after 5 seconds
+    setTimeout(function(){
+        document.querySelector('[role="alert"]').remove();
+    }, 3000);
+</script>
+@endif
+       
+          
+          <!--Vertically centered modal-->
+          <div
+            data-twe-modal-init
+            class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
+            id="create"
+            tabindex="-1"
+            aria-labelledby="exampleModalCenterTitle"
+            aria-modal="true"
+            role="dialog">
+            <div
+              data-twe-modal-dialog-ref
+              class="pointer-events-none relative flex min-h-[calc(100%-1rem)] w-auto translate-y-[-50px] items-center opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:min-h-[calc(100%-3.5rem)] min-[576px]:max-w-[500px]">
+              <div
+                class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-gray-800 bg-clip-padding text-current shadow-4 outline-none dark:bg-surface-dark">
+                <div
+                  class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 p-4 dark:border-white/10">
+                  <!-- Modal title -->
+                  <h5
+                    class="text-xl font-medium leading-normal text-surface dark:text-white"
+                    id="exampleModalCenterTitle">
+                    Create product
+                  </h5>
+                  <!-- Close button -->
+                  
+                  <button
+                    type="button"
+                    class="box-content rounded-none border-none text-neutral-500 hover:text-neutral-800 hover:no-underline focus:text-neutral-800 focus:opacity-100 focus:shadow-none focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300"
+                    data-twe-modal-dismiss
+                    aria-label="Close">
+                    <span class="[&>svg]:h-6 [&>svg]:w-6">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+          
+                <!-- Modal body -->
+                <div class="relative p-4 ">
+                 <form method="POST" action="products.create"  class="space-y-4">
+                    @csrf
+                            <!-- Categories -->
+                    <div>
+                        <x-input-label for="category_id" :value="__('Category')" />
+                        <select name="category_id" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm w-full">
+                            <option value="1">Hot</option>
+                            <option value="2">Ice</option>
+                        </select>
+                        <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+                    </div>
+                    <!-- Email Address -->
+                    <div>
+                        <x-input-label for="name" :value="__('name')" />
+                        <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"  autofocus autocomplete="username" />
+                        <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                    </div>
+                    <div>
+                        <x-input-label for="price" :value="__('price')" />
+                        <x-text-input id="price" class="block mt-1 w-full" type="number"  name="price"  price="price" :value="old('price')"  autofocus autocomplete="userprice" />
+                        <x-input-error :messages="$errors->get('price')" class="mt-2" />
+                    </div>
+            
+                                    <!-- Description -->
+                    <div class="relative mb-3">
+                        <x-input-label for="description" :value="__('Description')" />
+                        <textarea id="description" name="description" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm w-full" rows="4">{{ old('description') }}</textarea>
+                        <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                    </div>
+                   <!-- Modal footer -->
+                    <div
+                    class="flex flex-shrink-0 gap-2 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 p-4 dark:border-white/10">
+                    <x-secondary-button   data-twe-modal-dismiss
+                    aria-label="Close">
+                    Close
+                    </x-secondary-button>
+                    <x-primary-button class="ms-4">
+                        @if(isset($product))
+                        Update
+                    @else
+                        Save
+                    @endif
+                    </x-primary-button>
+                </div>
+                </form>
+                </div>
+          
+                
+              </div>
+            </div>
+          </div>
+
+          <!--Vertically update modal-->
+          {{-- <div
+            data-twe-modal-init
+            class="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-y-auto overflow-x-hidden outline-none"
+            id="update"
+            tabindex="-1"
+            aria-labelledby="exampleModalCenterTitle"
+            aria-modal="true"
+            role="dialog">
+            <div
+              data-twe-modal-dialog-ref
+              class="pointer-events-none relative flex min-h-[calc(100%-1rem)] w-auto translate-y-[-50px] items-center opacity-0 transition-all duration-300 ease-in-out min-[576px]:mx-auto min-[576px]:mt-7 min-[576px]:min-h-[calc(100%-3.5rem)] min-[576px]:max-w-[500px]">
+              <div
+                class="pointer-events-auto relative flex w-full flex-col rounded-md border-none bg-gray-800 bg-clip-padding text-current shadow-4 outline-none dark:bg-surface-dark">
+                <div
+                  class="flex flex-shrink-0 items-center justify-between rounded-t-md border-b-2 border-neutral-100 p-4 dark:border-white/10">
+                  <!-- Modal title -->
+                  <h5
+                    class="text-xl font-medium leading-normal text-surface dark:text-white"
+                    id="exampleModalCenterTitle">
+                    Update product 
+                  </h5>
+                  <!-- Close button -->
+                  
+                  <button
+                    type="button"
+                    class="box-content rounded-none border-none text-neutral-500 hover:text-neutral-800 hover:no-underline focus:text-neutral-800 focus:opacity-100 focus:shadow-none focus:outline-none dark:text-neutral-400 dark:hover:text-neutral-300 dark:focus:text-neutral-300"
+                    data-twe-modal-dismiss
+                    aria-label="Close">
+                    <span class="[&>svg]:h-6 [&>svg]:w-6">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor">
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M6 18L18 6M6 6l12 12" />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+          
+                <!-- Modal body -->
+                <div class="relative p-4 " id="updateModal{{ $products->id }}">
+                   
+                    <form action="{{ route('products.update', $products->id) }}" method="post" class="space-y-4">
+                        @csrf
+                        @method('put')
+                        <!-- Categories -->
+                        <div>
+                            <x-input-label for="category_id" :value="__('Category')" />
+                            <select name="category_id" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm w-full">
+                                <option value="1" {{ $product->category_id == 1 ? 'selected' : '' }}>Hot</option>
+                                <option value="2" {{ $product->category_id == 2 ? 'selected' : '' }}>Ice</option>
+                            </select>
+                            <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
+                        </div>
+                        <!-- Name -->
+                        <div>
+                            <x-input-label for="name" :value="__('Name')" />
+                            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" value="{{ $product->name }}" autofocus autocomplete="name" />
+                            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                        </div>
+                        <!-- Price -->
+                        <div>
+                            <x-input-label for="price" :value="__('Price')" />
+                            <x-text-input id="price" class="block mt-1 w-full" type="number" name="price" value="{{ $product->price }}" autofocus autocomplete="price" />
+                            <x-input-error :messages="$errors->get('price')" class="mt-2" />
+                        </div>
+                        <!-- Description -->
+                        <div>
+                            <x-input-label for="description" :value="__('Description')" />
+                            <textarea id="description" name="description" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm w-full" rows="4">{{ $product->description }}</textarea>
+                            <x-input-error :messages="$errors->get('description')" class="mt-2" />
+                        </div>
+                        <!-- Submit Button -->
+                        <x-primary-button>
+                            Update
+                        </x-primary-button>
+                    </form>
+                    
+                </div>
+          
+                
+              </div>
+            </div>
+          </div> --}}
+          
+        
+        </div>
+      
+
+
+        <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
+            < <div class="flex flex-col">
+                <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
+                  <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+                    <div class="overflow-hidden">
+                      <table
+                        class="min-w-full text-center text-sm font-light text-surface dark:text-white ">
+                        <thead
+                          class="border-b border-neutral-200 bg-[#332D2D] font-medium text-white dark:border-white/10">
+                          <tr>
+                            <th scope="col" class=" px-6 py-4">No</th>
+                            <th scope="col" class=" px-6 py-4">Image</th>
+                            <th scope="col" class=" px-6 py-4">category ID</th>
+                            <th scope="col" class=" px-6 py-4">name</th>
+                            <th scope="col" class=" px-6 py-4">Description</th>
+                            <th scope="col" class=" px-6 py-4">price</th>
+                            <th scope="col" class=" px-6 py-4">status</th>
+                            <th scope="col" class=" px-6 py-4">Create At</th>
+                            <th scope="col" class=" px-6 py-4"> Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($products as $product)
+                            <tr class="border-b border-neutral-200 dark:border-white/10">
+                                <td class="whitespace-nowrap  px-6 py-4 font-medium">{{ $product->id }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4"><img src="{{ url('storage/images/'.$product->image) }}" alt="" class="size-40 object-cover"></td>
+                                <td class="whitespace-nowrap  px-6 py-4">{{ $product->category_id }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4">{{ $product->name }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4">{{ $product->description }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4">$ {{ $product->price }}</td>
+                                <td class="whitespace-nowrap px-6 py-4 {{ $product->status === 1 ? 'text-green-600 font-bold' : 'text-red-600' }}">
+                                  {{ $product->status === 1 ? 'Active' : 'Inactive' }}
+                              </td>
+                                <td class="whitespace-nowrap  px-6 py-4">{{ $product->created_at }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4">
+                                    <div class="flex gap-5">
+                               
+                  
+                                    {{-- Edit Icon --}}
+                                    <a href="{{ route("products.edit", $product->id) }} ">
+                                      <button class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                              type="button">
+                                          <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 text-blue-800 hover:bg-gray-800 p-3 rounded-full duration-300">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+                                            class="w-4 h-4">
+                                            <path
+                                              d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32L19.513 8.2z">
+                                            </path>
+                                          </svg>
+                                          </span>
+                                      </button>
+                                    </a>
+                                   
+                                    
+                                    {{-- Delete Icon --}}
+                                    <form action="{{ route("products.destroy", $product->id) }}" method="post">
+                                      @csrf
+                                      @method("delete")
+                                      <button 
+                                      onclick="return confirm('Are you sure you want to delete this product?')"  
+                                      class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">
+                                        <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 hover:bg-gray-800 p-3 rounded-full duration-300">
+                                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-red-500">
+                                            <path fill-rule="evenodd"
+                                              d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                              clip-rule="evenodd"></path>
+                                          </svg>
+                                        </span>
+                                      </button>
+                                    </form>
+                                    </div>
+                                  </td>
+                              </tr>
+                            @endforeach
+                          
+                       
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        </div>
+    </div>
+  
+</x-app-layout>
