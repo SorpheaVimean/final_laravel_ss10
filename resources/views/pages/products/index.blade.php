@@ -90,7 +90,7 @@
                             @foreach ($products as $product)
                             <tr class="border-b border-neutral-200 dark:border-white/10">
                                 <td class="whitespace-nowrap  px-6 py-4 font-medium">{{ $product->id }}</td>
-                                <td class="whitespace-nowrap  px-6 py-4"><img src="{{ url('storage/images/'.$product->image) }}" alt="" class="size-40 object-cover"></td>
+                                <td class="whitespace-nowrap  px-6 py-4"><img src="{{ url('storage/images/'.$product->image) }}" alt="" class="size-40 object-cover rounded-lg"></td>
                                 <td class="whitespace-nowrap  px-6 py-4">{{ $product->category_id }}</td>
                                 <td class="whitespace-nowrap  px-6 py-4">{{ $product->name }}</td>
                                 <td class="whitespace-nowrap  px-6 py-4">{{ $product->description }}</td>

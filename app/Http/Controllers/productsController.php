@@ -21,7 +21,10 @@ class productsController extends Controller
         $products = $query->get();
     
         return view('pages.products.index', ['products' => $products]);
+        // return view()->share(['products' => $products]);
+
     }
+
     
     public function create()
     {
@@ -72,6 +75,10 @@ class productsController extends Controller
             'image' => '|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
         ]);
         $product = Products::find($id);
+        $product->category_id = $request->category_id;
+        $product->name = $request->name;
+        $product->description = $request->description;
+        $product->price = $request->price;
         if ($request->hasFile('image')) {
             // If a new image is uploaded, update the image path
             $image = $request->file('image');
@@ -114,7 +121,12 @@ class productsController extends Controller
     // }
     public function destroy(string $id)
     {
-        Products::find($id)->delete();
+       $product = Products::find($id);
+        $oldImagePath = 'public/images/' . $product->image;
+        if (Storage::exists($oldImagePath)) {
+            Storage::delete($oldImagePath);
+        }
+        $product->delete();
         return redirect('/products')->with('success', 'Product Deleted successfully!');
     }
 }
