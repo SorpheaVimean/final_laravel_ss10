@@ -11,4 +11,9 @@ class Products extends Model
     protected $table = "products";
     protected $guarded = ["id"];
     protected $fillable = [ 'category_id', 'name', 'description', 'price', 'status', 'image'];
+
+    // public function carts()
+    // {
+    //     return $this->hasMany(Carts::class, 'product_id');
+    // }
 }

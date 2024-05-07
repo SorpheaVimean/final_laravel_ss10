@@ -103,9 +103,10 @@
                     <div class="relative overflow-hidden bg-cover bg-no-repeat">
                         <img class="rounded-t-lg" id="img" src="https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg" alt="" />
                     </div>
-                    <div class="p-6 flex justify-center items-center gap-5">
-                        <p> $<span class="text-red-600 ml-1" id="preview_price">price</span></p>
-                        <p> <span id="preview_name">Product name</span></p>
+                   
+                    <div class="p-6 flex flex-col justify-center items-center gap-5">
+                        <p class="text-2xl text-center"> <span id="preview_name">Product name</span></p>
+                        <p  class="bg-gray-700 w-full text-center text-white p-2 rounded-lg">$ <span id="preview_price">price</span></p>
                     
                     </div>
                 </div>

@@ -12,11 +12,8 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link wire:navigate :href="route('sale')" :active="request()->routeIs('sale')">
-                        {{ __('sale') }}
-                    </x-nav-link>
                     <x-nav-link wire:navigate :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('Sale') }}
                     </x-nav-link>
                     <x-nav-link wire:navigate :href="route('products.index')" :active="request()->routeIs('products.index')">
                         {{ __('Products') }}
@@ -26,6 +23,9 @@
                     </x-nav-link>
                     <x-nav-link wire:navigate :href="route('payments.index')" :active="request()->routeIs('payments.index')">
                         {{ __('Payments') }}
+                    </x-nav-link>
+                    <x-nav-link wire:navigate :href="route('orders.index')" :active="request()->routeIs('orders.index')">
+                        {{ __('Orders') }}
                     </x-nav-link>
                     
                     

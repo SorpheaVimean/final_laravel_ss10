@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\paymentsController;
 use App\Http\Controllers\productsController;
 use App\Http\Controllers\ProfileController;
@@ -8,6 +11,7 @@ use App\Models\Products;
 use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -43,21 +47,25 @@ Route::middleware('auth')->group(function () {
     Route::resource('/products', productsController::class);
     Route::resource('/categories', CategoryController::class);
     Route::resource('/payments', paymentsController::class);
-
-    View::composer(['*'], function ($view) {
-        $request = app('request');
-        $categoryId = $request->input('category_id');
+    // Route::resource('/carts', CartsController::class);
+    Route::resource('/carts', CartController::class);
+    Route::resource('/orders', OrdersController::class);
+    // Route::delete('/cart/{id}', [CartController::class, 'destroy'])->name('cart.destroy');
+    // View::composer('*', function ($view) {
+    //     dd("View Composer triggered!");
+    //     $request = app('request');
+    //     $categoryId = $request->input('category_id');
     
-        // Query products based on category_id if provided
-        $query = Products::orderBy("id", "DESC");
-        if ($categoryId) {
-            $query->where('category_id', $categoryId);
-        }
+    //     // Query products based on category_id if provided
+    //     $query = Products::orderBy("id", "DESC");
+    //     if ($categoryId) {
+    //         $query->where('category_id', $categoryId);
+    //     }
     
-        $products = $query->get();
+    //     $products = $query->get();
     
-        $view->with('products', $products);
-    });
+    //     $view->with('products', $products);
+    // });
     // Route::post('/products', [productsController::class, 'create'])->name('products.create');
     // Route::put('/products/{id}', [productsController::class, 'edit'])->name('products.edit');
     // Route::delete('/products/{id}', [productsController::class, 'delete'])->name('products.delete');

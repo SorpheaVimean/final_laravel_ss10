@@ -1,8 +1,7 @@
-
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            Products
+            Orders
         </h2>
     </x-slot>
 
@@ -48,33 +47,13 @@
         </div>
       
         <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
-         
-        
           <div class="flex justify-between items-center mb-4">
-            <h1 class="text-2xl font-bold text-white">Total Products: {{ count($products) }}</h1>
-            
-          <div class="flex justify-center items-center gap-10">
-            <form action="{{ route('products.index') }}" method="GET" class="flex justify-center items-center gap-4">
-              <select name="category_id" id="category_id" class="rounded-lg h-10">
-                  <option value="">All Categories</option>
-                  {{-- @foreach($products as $product) --}}
-                      {{-- <option  value="{{ $product->id }}" {{ request('category_id') == $product->category_id ? 'selected' : '' }}>{{ $product->category_id  }}</option> --}}
-                      <option value="1">Hot</option>
-                      <option value="2">ice</option>
-                  {{-- @endforeach --}}
-              </select>
-              {{-- <button >Filter</button> --}}
-              <x-secondary-button type="submit">
-                Filter
-              </x-secondary-button>
-            </form>
-            <a wire:navigate href="{{ route("products.create" ) }}">
+            <h1 class="text-2xl font-bold text-white">Total Orders: {{ count($orders) }}</h1>
+            <a wire:navigate href="{{ route("dashboard" ) }}">
               <x-primary-button>
-                Create Product
+                Create orders
               </x-primary-button>
-            </a>
-          </div>
-           
+          </a>
           </div>
              <div class="flex flex-col">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -86,35 +65,60 @@
                           class="border-b border-neutral-200 bg-[#332D2D] font-medium text-white dark:border-white/10">
                           <tr>
                             <th scope="col" class=" px-6 py-4">No</th>
-                            <th scope="col" class=" px-6 py-4">Image</th>
-                            <th scope="col" class=" px-6 py-4">category ID</th>
-                            <th scope="col" class=" px-6 py-4">name</th>
-                            <th scope="col" class=" px-6 py-4">Description</th>
-                            <th scope="col" class=" px-6 py-4">price</th>
-                            <th scope="col" class=" px-6 py-4">status</th>
+                            <th scope="col" class=" px-6 py-4">User</th>
+                            <th scope="col" class=" px-6 py-4">Payment method</th>
+                            <th scope="col" class=" px-6 py-4">Total order</th>
+                            <th scope="col" class=" px-6 py-4">comment</th>
                             <th scope="col" class=" px-6 py-4">Create At</th>
                             <th scope="col" class=" px-6 py-4"> Action</th>
                           </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $product)
+                            @foreach ($orders as $order)
                             <tr class="border-b border-neutral-200 dark:border-white/10">
-                                <td class="whitespace-nowrap  px-6 py-4 font-medium">{{ $product->id }}</td>
-                                <td class="whitespace-nowrap  px-6 py-4"><img src="{{ url('storage/images/'.$product->image) }}" alt="" class="size-40 object-cover rounded-lg"></td>
-                                <td class="whitespace-nowrap  px-6 py-4">{{ $product->category_id }}</td>
-                                <td class="whitespace-nowrap  px-6 py-4">{{ $product->name }}</td>
-                                <td class="whitespace-nowrap  px-6 py-4">{{ $product->description }}</td>
-                                <td class="whitespace-nowrap  px-6 py-4">$ {{ $product->price }}</td>
-                                <td class="whitespace-nowrap px-6 py-4 {{ $product->status === 1 ? 'text-green-600 font-bold' : 'text-red-600' }}">
-                                  {{ $product->status === 1 ? 'Active' : 'Inactive' }}
-                              </td>
-                                <td class="whitespace-nowrap  px-6 py-4">{{ $product->created_at }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4 font-medium">{{ $order->id }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4">{{ $order->user_id }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4">{{ $order->payment_method_id }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4">$ {{ $order->total_order }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4">{{ $order->comment }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4">{{ $order->created_at }}</td>
                                 <td class="whitespace-nowrap  px-6 py-4">
                                     <div class="flex gap-5">
                                
-                  
+                                        <a href="{{ route("orders.show", $order->id) }}">
+                                            <button
+                                            class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                                            type="button">
+                                            <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 text-blue-800">
+                                            
+                                                <svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+                                            class="w-4 h-4" viewBox="0 0 456.793 456.793"
+                                            xml:space="preserve">
+                                        <g>
+                                          <g>
+                                            <path d="M448.947,218.474c-0.922-1.168-23.055-28.933-61-56.81c-50.707-37.253-105.879-56.944-159.551-56.944
+                                              c-53.673,0-108.845,19.691-159.551,56.944c-37.944,27.876-60.077,55.642-61,56.81L0,228.396l7.845,9.923
+                                              c0.923,1.168,23.056,28.934,61,56.811c50.707,37.254,105.878,56.943,159.551,56.943c53.672,0,108.844-19.689,159.551-56.943
+                                              c37.945-27.877,60.078-55.643,61-56.811l7.846-9.923L448.947,218.474z M228.396,312.096c-46.152,0-83.699-37.548-83.699-83.699
+                                              c0-46.152,37.547-83.699,83.699-83.699s83.7,37.547,83.7,83.699C312.096,274.548,274.548,312.096,228.396,312.096z
+                                                M41.685,228.396c9.197-9.872,25.32-25.764,46.833-41.478c13.911-10.16,31.442-21.181,51.772-30.305
+                                              c-15.989,19.589-25.593,44.584-25.593,71.782s9.604,52.193,25.593,71.782c-20.329-9.124-37.861-20.146-51.771-30.306
+                                              C67.002,254.159,50.878,238.265,41.685,228.396z M368.273,269.874c-13.912,10.16-31.443,21.182-51.771,30.306
+                                              c15.988-19.589,25.594-44.584,25.594-71.782s-9.605-52.193-25.594-71.782c20.33,9.124,37.861,20.146,51.771,30.305
+                                              c21.516,15.715,37.639,31.609,46.832,41.477C405.91,238.268,389.785,254.161,368.273,269.874z"/>
+                                            <path d="M223.646,168.834c-27.513,4-50.791,31.432-41.752,59.562c8.23-20.318,25.457-33.991,45.795-32.917
+                                              c16.336,0.863,33.983,18.237,33.59,32.228c1.488,22.407-12.725,39.047-32.884,47.191c46.671,15.21,73.197-44.368,51.818-79.352
+                                              C268.232,175.942,245.969,166.23,223.646,168.834z"/>
+                                          </g>
+                                        </g>
+                                        </svg>
+                                              
+                                            </span>
+                                          </button>
+                                        </a>
+
                                     {{-- Edit Icon --}}
-                                    <a href="{{ route("products.edit", $product->id) }} ">
+                                    <a href="{{ route("orders.edit", $order->id) }} ">
                                       <button class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                               type="button">
                                           <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 text-blue-800 hover:bg-gray-800 p-3 rounded-full duration-300">
@@ -130,11 +134,11 @@
                                    
                                     
                                     {{-- Delete Icon --}}
-                                    <form action="{{ route("products.destroy", $product->id) }}" method="post">
+                                    <form action="{{ route("orders.destroy", $order->id) }}" method="post">
                                       @csrf
                                       @method("delete")
                                       <button 
-                                      onclick="return confirm('Are you sure you want to delete this product?')"  
+                                      onclick="return confirm('Are you sure you want to delete this category?')"  
                                       class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="submit">
                                         <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 hover:bg-gray-800 p-3 rounded-full duration-300">
                                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5 text-red-500">

@@ -39,7 +39,7 @@
 </script>
 @endif
         <div class="py-5 w-full max-w-2xl mx-auto bg-gray-800 rounded-lg p-3 mt-5">
-            <form method="POST"action="/categories" class="space-y-4">
+            <form method="POST" action="/categories" class="space-y-4">
                 @csrf
 
 
