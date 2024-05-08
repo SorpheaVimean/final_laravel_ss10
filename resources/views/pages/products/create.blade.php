@@ -101,8 +101,8 @@
             <h3 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight mb-2">Preview</h3>
                 <div class="flex justify-center items-center">
                     <div class="block max-w-[18rem] rounded-lg bg-white text-surface shadow-secondary-1 dark:bg-surface-dark dark:text-black">
-                    <div class="relative overflow-hidden bg-cover bg-no-repeat">
-                        <img class="rounded-t-lg" id="img" src="https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg" alt="" />
+                    <div class="relative overflow-hidden bg-cover bg-no-repeat h-60">
+                        <img class="rounded-t-lg" id="img" src="https://t4.ftcdn.net/jpg/04/73/25/49/360_F_473254957_bxG9yf4ly7OBO5I0O5KABlN930GwaMQz.jpg" alt=""/>
                     </div>
                    
                     <div class="p-6 flex flex-col justify-center items-center gap-5">

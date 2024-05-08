@@ -32,6 +32,7 @@ class paymentsController extends Controller
     {
         $request->validate([
             "name" => "required",
+            "description" => "required",
         ]);
         Payments::create($request->all());
         return redirect("/payments/create")->with('success', 'Payment added successfully!');
