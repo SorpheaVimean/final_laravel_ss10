@@ -19,7 +19,6 @@ return new class extends Migration
             $table->double('price');
             $table->integer('status')->default(1);
             $table->timestamps();
-            $table->foreign('category_id')->references('id')->on('category');
         });
     }
 
