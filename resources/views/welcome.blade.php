@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>SS10</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -31,8 +31,6 @@
                     @endauth
                 </div>
             @endif
-            {{-- <x-application-logo class="block h-10 fill-current  rounded-full " /> --}}
-            {{-- <img src="{{ url('ss10.svg') }}" alt="" class="h-5"> --}}
            
             <
             <div class=" p-6 lg:p-8">
