@@ -87,7 +87,7 @@
                                
                   
                                     {{-- Edit Icon --}}
-                                    <a href="{{ route("categories.edit", $payment->id) }} ">
+                                    <a href="{{ route("payments.edit", $payment->id) }} ">
                                       <button class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
                                               type="button">
                                           <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 text-blue-800 hover:bg-gray-800 p-3 rounded-full duration-300">

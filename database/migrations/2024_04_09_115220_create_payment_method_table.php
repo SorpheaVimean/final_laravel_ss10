@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('payment_method', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('description');
             $table->timestamps();
         });
     }

@@ -46,8 +46,9 @@
                 <div>
                     <x-input-label for="category_id" :value="__('Category')" />
                     <select name="category_id" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm w-full" >
-                        <option value="1">Hot</option>
-                        <option value="2">Ice</option>
+                        @foreach($categories as $category)
+                        <option  value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name}}</option>
+                    @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
                 </div>

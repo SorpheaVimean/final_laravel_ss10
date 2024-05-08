@@ -5,33 +5,33 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    <a wire:navigate href="{{ route('dashboard') }}">
+                        <x-application-logo class="block h-12 w-auto fill-current  rounded-full " />
                     </a>
                 </div>
 
-                <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link wire:navigate :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Sale') }}
-                    </x-nav-link>
-                    <x-nav-link wire:navigate :href="route('products.index')" :active="request()->routeIs('products.index')">
-                        {{ __('Products') }}
-                    </x-nav-link>
-                    <x-nav-link wire:navigate :href="route('categories.index')" :active="request()->routeIs('categories.index')">
-                        {{ __('categories') }}
-                    </x-nav-link>
-                    <x-nav-link wire:navigate :href="route('payments.index')" :active="request()->routeIs('payments.index')">
-                        {{ __('Payments') }}
-                    </x-nav-link>
-                    <x-nav-link wire:navigate :href="route('orders.index')" :active="request()->routeIs('orders.index')">
-                        {{ __('Orders') }}
-                    </x-nav-link>
-                    
-                    
-                </div>
+                
             </div>
-
+            <!-- Navigation Links -->
+            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <x-nav-link wire:navigate :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    {{ __('SALE') }}
+                </x-nav-link>
+                <x-nav-link wire:navigate :href="route('products.index')" :active="request()->routeIs('products.index')">
+                    {{ __('PRODUCTS') }}
+                </x-nav-link>
+                <x-nav-link wire:navigate :href="route('categories.index')" :active="request()->routeIs('categories.index')">
+                    {{ __('CATEGORIES') }}
+                </x-nav-link>
+                <x-nav-link wire:navigate :href="route('payments.index')" :active="request()->routeIs('payments.index')">
+                    {{ __('PAYMENTS') }}
+                </x-nav-link>
+                <x-nav-link wire:navigate :href="route('orders.index')" :active="request()->routeIs('orders.index')">
+                    {{ __('ORDERS') }}
+                </x-nav-link>
+                
+                
+            </div>
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6 z-50">
                 <x-dropdown align="right" width="48">

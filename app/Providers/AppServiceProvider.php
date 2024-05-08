@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Carts;
+use App\Models\Categories;
+use App\Models\Payments;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -42,6 +44,16 @@ class AppServiceProvider extends ServiceProvider
             $products = $query->get();
 
             $view->with('products', $products);
+        });
+
+        View::composer(['*'], function ($view) {
+            $categories = Categories::orderBy("id", "DESC")->get();
+            $view->with('categories', $categories);
+        });
+        
+        View::composer(['*'], function ($view) {
+            $payments = Payments::orderBy("id", "DESC")->get();
+            $view->with('payments', $payments);
         });
 
         // View::composer(['dashboard'], function ($view) {

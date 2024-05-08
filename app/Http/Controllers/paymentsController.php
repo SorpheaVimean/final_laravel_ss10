@@ -22,7 +22,7 @@ class paymentsController extends Controller
      */
     public function create()
     {
-        return view('pages.payments.create' );
+        return view('pages.payments.create');
     }
 
     /**
@@ -51,9 +51,9 @@ class paymentsController extends Controller
      */
     public function edit(string $id)
     {
-        $category = Payments::find($id);
+        $payment = Payments::find($id);
         
-        return view("pages.payments.edit", ["Payment"=>$category]);
+        return view("pages.payments.edit", ["payment"=>$payment]);
     }
 
     /**

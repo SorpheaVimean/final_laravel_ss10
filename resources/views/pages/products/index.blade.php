@@ -57,11 +57,11 @@
             <form action="{{ route('products.index') }}" method="GET" class="flex justify-center items-center gap-4">
               <select name="category_id" id="category_id" class="rounded-lg h-10">
                   <option value="">All Categories</option>
-                  {{-- @foreach($products as $product) --}}
-                      {{-- <option  value="{{ $product->id }}" {{ request('category_id') == $product->category_id ? 'selected' : '' }}>{{ $product->category_id  }}</option> --}}
-                      <option value="1">Hot</option>
-                      <option value="2">ice</option>
-                  {{-- @endforeach --}}
+                  @foreach($categories as $category)
+                      <option  value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name}}</option>
+                      {{-- <option value="1">Hot</option>
+                      <option value="2">ice</option> --}}
+                  @endforeach
               </select>
               {{-- <button >Filter</button> --}}
               <x-secondary-button type="submit">

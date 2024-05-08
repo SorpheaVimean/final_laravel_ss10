@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderDetail;
 use App\Models\Orders;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        $orders = Orders::orderBy("id", "DESC")->get();
+        $orders = Orders::with('getpayment')->orderBy('id', 'DESC')->get();
         return view('pages.orders.index', ['orders' => $orders]);
     }
 
@@ -135,7 +136,31 @@ class OrdersController extends Controller
      */
     public function show(string $id)
     {
-        //
+        
+            // Find the order by ID
+            $order = Orders::find($id);
+
+            if (!$order) {
+                // Handle case where order is not found
+                return view('order.not_found');
+            }
+    
+            // Retrieve order details for the given order ID
+            // $orderDetails = OrderDetail::where('order_id', $id)->get();
+    
+            // You can also eager load related product information if needed
+            $orderDetails = OrderDetail::with('getproduct')->where('order_id', $id)->get();
+
+            // Calculate total price and total quantity
+            $totalPrice = $orderDetails->sum('price');
+            $totalQty = $orderDetails->sum('quantity');
+            
+            return view('pages.orders.show', [ 
+                'order_id' => $order,
+                'orderDetails' => $orderDetails,
+                'totalPrice' => $totalPrice,
+                'totalQty' => $totalQty,
+            ]);
     }
 
     /**
@@ -160,6 +185,6 @@ class OrdersController extends Controller
     public function destroy(string $id)
     {
         Orders::find($id)->delete();
-        return redirect('/orders');
+        return redirect('/orders')->with('success', 'Order Deleted successfully!');
     }
 }

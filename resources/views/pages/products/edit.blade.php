@@ -13,14 +13,13 @@
                 <div>
                     <x-input-label for="category_id" :value="__('Category')" />
                     <select name="category_id" alue="{{ $product->category_id }}" class="border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm w-full" >
-                        {{-- <option value="1"  @if($product->category_id == '1') selected @endif>Hot</option>
-                        <option value="2" @if($product->category_id == '2') selected @endif>Ice</option>
-                       @endif>1</option> --}}
-                       <option value="1" @if($product->category_id == '1') selected @endif>Hot</option>
-                       <option value="2" @if($product->category_id == '2') selected @endif>Ice</option>
+                       @foreach($categories as $category)
+                            <option value="{{ $category->id }}" @if($product->category_id == $category->id) selected @endif>{{ $category->name }}</option>
+                        @endforeach
                     </select>
                     <x-input-error :messages="$errors->get('category_id')" class="mt-2" />
                 </div>
+
                 <!-- Email Address -->
                 <div>
                     <x-input-label for="name" :value="__('name')" />
@@ -46,6 +45,7 @@
                     <x-text-input id="image" class="block mt-1 w-full" type="file" name="image" value="{{ $product->image }}" />
                     <x-input-error :messages="$errors->get('image')" class="mt-2" />
                 </div>
+
                 <!-- Modal footer -->
                 <div
                 class="flex flex-shrink-0 gap-2 flex-wrap items-center justify-end rounded-b-md border-t-2 border-neutral-100 p-4 dark:border-white/10">
@@ -61,6 +61,7 @@
                 </x-primary-button>
             </form>
         </div>
+        
          <!-- Preview Section -->
          <div >
             <h3 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight mb-2">Preview</h3>

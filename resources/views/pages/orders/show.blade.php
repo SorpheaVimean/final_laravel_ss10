@@ -6,18 +6,13 @@
     </x-slot>
 
  
-<h1>Hello</h1>
 
-    {{-- <div class="py-5">
+
+    <div class="py-5">
       
         <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8">
           <div class="flex justify-between items-center mb-4">
-            <h1 class="text-2xl font-bold text-white">Total Orders: {{ count($orderDetail) }}</h1>
-            <a wire:navigate href="{{ route("dashboard" ) }}">
-              <x-primary-button>
-                Create orders
-              </x-primary-button>
-          </a>
+            <h1 class="text-2xl font-bold text-white">Total Orders: {{ $totalQty }}</h1>
           </div>
              <div class="flex flex-col">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -40,9 +35,15 @@
                             <tr class="border-b border-neutral-200 dark:border-white/10">
                                 <td class="whitespace-nowrap  px-6 py-4 font-medium">{{ $order->id }}</td>
                                 <td class="whitespace-nowrap  px-6 py-4">{{ $order->order_id }}</td>
-                                <td class="whitespace-nowrap  px-6 py-4">{{ $order->product_id }}</td>
-                                <td class="whitespace-nowrap  px-6 py-4">$ {{ $order->quantity }}</td>
-                                <td class="whitespace-nowrap  px-6 py-4">{{ $order->price }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4">
+                                  <div class="flex flex-col justify-center items-center gap-5">
+                                    <div class="text-lg"> {{ $order->getproduct->name }}</div>
+                                    <img src="{{ url('storage/images/'.$order->getproduct->image) }}" alt="" class="w-36 rounded-lg">
+                                  </div>
+                                  
+                                </td>
+                                <td class="whitespace-nowrap  px-6 py-4"> {{ $order->quantity }}</td>
+                                <td class="whitespace-nowrap  px-6 py-4 text-red-500 font-bold">$ {{ $order->price }}</td>
                             @endforeach
                           
                        
@@ -51,9 +52,28 @@
                     </div>
                   </div>
                 </div>
+                <div class="mt-4 flex justify-end items-center gap-20 text-white">
+                  <div class="text-3xl">Order Summary</div>
+                  <div class="flex gap-20 p-10 ">
+                    <div class="space-y-3 text-xl ">
+                      <div class="">Total Quantity: </div>
+                      <div class="">Discount: </div>
+                      <div class="">Discount price: </div>
+                      <div class="">Total Price: </div>
+                    </div>
+                    <div class="space-y-3 text-xl">
+                      <div class="">{{ $totalQty }} products</div>
+                      <div class="">%-</div>
+                      <div class="">$-</div>
+                      <div class="text-red-500">$ {{ $totalPrice }}</div>
+                    </div>
+                  </div>
+                 
+                </div>
               </div>
+             </div>
+             
         </div>
-        </div>
-    </div> --}}
+    </div>
   
 </x-app-layout>
