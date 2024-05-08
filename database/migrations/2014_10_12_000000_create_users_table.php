@@ -25,7 +25,6 @@ return new class extends Migration
             $table->integer('status')->default(1);
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 
