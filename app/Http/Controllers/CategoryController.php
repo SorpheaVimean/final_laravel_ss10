@@ -12,10 +12,15 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // $products = Products::all();
         $categories = Categories::orderBy("id", "DESC")->get();
         return view('pages.categories.index', ['categories' => $categories]);
     }
+
+    // public function getCategories()
+    // {
+    //     $categories = Categories::all();
+    //     return response(['categories' => $categories]);
+    // }
 
     /**
      * Show the form for creating a new resource.

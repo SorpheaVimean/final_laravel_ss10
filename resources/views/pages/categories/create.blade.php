@@ -42,8 +42,6 @@
             <form method="POST" action="/categories" class="space-y-4">
                 @csrf
 
-
-
                 <!-- name -->
                 <div>
                     <x-input-label for="name" :value="__('name')" />
